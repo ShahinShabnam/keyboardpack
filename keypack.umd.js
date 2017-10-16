@@ -249,6 +249,7 @@ var CustomKeyboardComponent = (function () {
         this.CapsLock = false;
         // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
         this.caretPos = 0;
+        document.getElementById('input').focus();
     };
     /**
      * @param {?} event
@@ -256,17 +257,29 @@ var CustomKeyboardComponent = (function () {
      */
     CustomKeyboardComponent.prototype.keyPress = function (event) {
         console.log(event.keyCode);
-        if (event.keyCode == "27" || event.keyCode == "13") {
+        if (event.keyCode == "27") {
             console.log(String.fromCharCode(event.keyCode));
+            alert("you press the excape button");
         }
         else if (event.keyCode == "20") {
             this.Caps();
         }
         else if (event.keyCode == "17") {
+            this.enterKeyMethod();
+        }
+        else if (event.keyCode == "13") {
+            this.enterKeyMethod();
         }
         else {
             this.inputstr = event.target.value;
         }
+    };
+    /**
+     * @return {?}
+     */
+    CustomKeyboardComponent.prototype.enterKeyMethod = function () {
+        console.log(this.inputstr);
+        this.customKeyboardService.emit('enter:value', this.inputstr);
     };
     /**
      * @return {?}
