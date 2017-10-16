@@ -341,6 +341,11 @@ var CustomKeyboardComponent = (function () {
                 this.setSelectionRange(this.caretPos, this.caretPos); //Lift Shift
                 //alert('lenth' + this.str.length + 'carsor' + this.caretPos);
             }
+            else if (item === "Enter") {
+                console.log(this.inputstr);
+                alert(this.inputstr + "enter:value");
+                this.customKeyboardService.emit('enter:value', this.inputstr);
+            }
             else if (item === "bksp") {
                 //alert(item + "bksp");
                 this.inputstr = this.inputstr.substring(0, this.inputstr.length - 1);
