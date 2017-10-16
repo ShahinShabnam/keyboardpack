@@ -268,6 +268,7 @@ var CustomKeyboardComponent = (function () {
         }
         else if (event.keyCode == "13") {
             console.log(this.inputstr);
+            alert(this.inputstr + "enter:value");
             this.customKeyboardService.emit('enter:value', this.inputstr);
         }
         else {
@@ -305,7 +306,7 @@ var CustomKeyboardComponent = (function () {
     CustomKeyboardComponent.prototype.click = function (item, inputTextArea) {
         //alert(item);
         this.getCaretPos(inputTextArea); //Get Cursor Position From Text Area
-        if (item === "Esc" || item[0] === "Enter") {
+        if (item === "Esc" || item[0] === "Enter" || item === "Enter") {
             console.log(item);
         }
         else {
