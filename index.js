@@ -237,7 +237,7 @@ var CustomKeyboardComponent = (function () {
                 },
             ];
         this.subscriptions = this.customKeyboardService.filterOn('input:type:change').subscribe(function (d) {
-            alert(d.data + "components");
+            alert(_this.inputType + "this.inputType");
             _this.inputType = d.data;
         });
     }
@@ -271,34 +271,40 @@ var CustomKeyboardComponent = (function () {
      * @return {?}
      */
     CustomKeyboardComponent.prototype.Caps = function () {
-        // if (this.CapsLock) {
-        //   this.CapsLock = !this.CapsLock;
-        //   for (let i = 0; i <= 36; i++) {
-        //     if (i >= 1 && i <= 10) {
-        //       this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-        //     }
-        //     else if (i >= 16 && i <= 24) {
-        //       this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-        //     }
-        //     else if (i >= 30 && i <= 36) {
-        //       this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-        //     }
-        //   }
-        // }
-        // else {
-        //   this.CapsLock = !this.CapsLock;
-        //   for (let i = 0; i <= 36; i++) {
-        //     if (i >= 1 && i <= 10) {
-        //       this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-        //     }
-        //     else if (i >= 16 && i <= 24) {
-        //       this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-        //     }
-        //     else if (i >= 30 && i <= 36) {
-        //       this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-        //     }
-        //   }
-        // }
+        if (this.CapsLock) {
+            this.CapsLock = !this.CapsLock;
+            for (var /** @type {?} */ i = 0; i <= 36; i++) {
+                if (i >= 1 && i <= 10) {
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                    this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
+                }
+                else if (i >= 16 && i <= 24) {
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                    this.escGroup[i].key = this.capsGroup[i].key.toLowerCase();
+                }
+                else if (i >= 30 && i <= 36) {
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                    this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
+                }
+            }
+        }
+        else {
+            this.CapsLock = !this.CapsLock;
+            for (var /** @type {?} */ i = 0; i <= 36; i++) {
+                if (i >= 1 && i <= 10) {
+                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                }
+                else if (i >= 16 && i <= 24) {
+                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                }
+                else if (i >= 30 && i <= 36) {
+                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                }
+            }
+        }
     };
     /**
      * @param {?} item
