@@ -1,18 +1,13 @@
 import { Component, Directive, ElementRef, Injectable, NgModule, Pipe } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import { FormsModule } from '@angular/forms';
 
+// import 'rxjs/add/operator/toPromise';
+// import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/map';
 var CustomKeyboardService = (function () {
-    /**
-     * @param {?} _http
-     */
-    function CustomKeyboardService(_http) {
-        this._http = _http;
+    function CustomKeyboardService() {
     }
     /**
      * @param {?} passvalue
@@ -46,9 +41,7 @@ CustomKeyboardService.decorators = [
 /**
  * @nocollapse
  */
-CustomKeyboardService.ctorParameters = function () { return [
-    { type: Http, },
-]; };
+CustomKeyboardService.ctorParameters = function () { return []; };
 
 var CustomKeyboardComponent = (function () {
     /**

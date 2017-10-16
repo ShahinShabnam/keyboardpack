@@ -1,15 +1,14 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/http'), require('rxjs/add/operator/toPromise'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('@angular/forms')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/http', 'rxjs/add/operator/toPromise', 'rxjs/add/operator/catch', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', '@angular/forms'], factory) :
-	(factory((global.keypack = {}),global.core,global.common,global.http,null,null,null,null,global.forms));
-}(this, (function (exports,core,common,http,toPromise,_catch,map,filter,forms) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/add/operator/filter'), require('@angular/forms')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/add/operator/filter', '@angular/forms'], factory) :
+	(factory((global.keypack = {}),global.core,global.common,null,global.forms));
+}(this, (function (exports,core,common,filter,forms) { 'use strict';
 
+// import 'rxjs/add/operator/toPromise';
+// import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/map';
 var CustomKeyboardService = (function () {
-    /**
-     * @param {?} _http
-     */
-    function CustomKeyboardService(_http) {
-        this._http = _http;
+    function CustomKeyboardService() {
     }
     /**
      * @param {?} passvalue
@@ -43,9 +42,7 @@ CustomKeyboardService.decorators = [
 /**
  * @nocollapse
  */
-CustomKeyboardService.ctorParameters = function () { return [
-    { type: http.Http, },
-]; };
+CustomKeyboardService.ctorParameters = function () { return []; };
 
 var CustomKeyboardComponent = (function () {
     /**
