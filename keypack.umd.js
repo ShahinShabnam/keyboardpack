@@ -255,6 +255,7 @@ var CustomKeyboardComponent = (function () {
      * @return {?}
      */
     CustomKeyboardComponent.prototype.keyPress = function (event) {
+        console.log(event.keyCode);
         if (event.keyCode == "27" || event.keyCode == "13") {
             console.log(String.fromCharCode(event.keyCode));
         }
@@ -273,36 +274,20 @@ var CustomKeyboardComponent = (function () {
     CustomKeyboardComponent.prototype.Caps = function () {
         if (this.CapsLock) {
             this.CapsLock = !this.CapsLock;
-            for (var /** @type {?} */ i = 0; i <= 36; i++) {
-                if (i >= 1 && i <= 10) {
-                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-                    // this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
-                }
-                // else if (i >= 16 && i <= 24) {
-                //   this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-                //   this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
-                // }
-                // else if (i >= 30 && i <= 36) {
-                //   this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-                //   this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
-                // }
+            for (var /** @type {?} */ i = 1; i <= 10; i++) {
+                this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+                this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
+                if (i > 1)
+                    this.capsGroup[i + 8].key = this.capsGroup[i + 8].key.toLowerCase();
             }
         }
         else {
             this.CapsLock = !this.CapsLock;
-            for (var /** @type {?} */ i = 0; i <= 36; i++) {
-                if (i >= 1 && i <= 10) {
-                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-                    // this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
-                }
-                // else if (i >= 16 && i <= 24) {
-                //   this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-                //   this.escGroup[i].key = this.capsGroup[i].key.toLowerCase();
-                // }
-                // else if (i >= 30 && i <= 36) {
-                //   this.capsGroup[i].key = this.escGroup[i].key.toUpperCase();
-                //   this.capsGroup[i].key = this.capsGroup[i].key.toLowerCase();
-                // }
+            for (var /** @type {?} */ i = 1; i <= 10; i++) {
+                this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+                this.capsGroup[i].key = this.capsGroup[i].key.toUpperCase();
+                if (i > 1)
+                    this.capsGroup[i + 8].key = this.capsGroup[i + 8].key.toUpperCase();
             }
         }
     };
@@ -312,13 +297,13 @@ var CustomKeyboardComponent = (function () {
      * @return {?}
      */
     CustomKeyboardComponent.prototype.click = function (item, inputTextArea) {
-        alert(item);
+        //alert(item);
         this.getCaretPos(inputTextArea); //Get Cursor Position From Text Area
-        if (item === "Esc" || item === "Enter") {
+        if (item === "Esc" || item[0] === "Enter") {
             console.log(item);
         }
         else {
-            if (item !== "bksp" && item !== "Caps" && item !== "Spacebar" && item !== "-->" && item !== "<--") {
+            if (item !== "bksp" && item !== "caps" && item[0] !== "Spacebar" && item !== "-->" && item !== "<--") {
                 // console.log('lenth' + this.inputstr.length + 'carsor' + this.caretPos);
                 if (this.inputstr.length > this.caretPos) {
                     var /** @type {?} */ tempstr = this.inputstr.substring(0, this.caretPos);
@@ -332,10 +317,11 @@ var CustomKeyboardComponent = (function () {
                     this.inputstr += item;
                 }
             }
-            else if (item === "Spacebar") {
+            else if (item[0] === "Spacebar") {
                 this.inputstr += " ";
             }
-            else if (item === "Caps") {
+            else if (item === "caps") {
+                console.log(item);
                 this.Caps();
             }
             else if (item === "-->") {
@@ -343,11 +329,13 @@ var CustomKeyboardComponent = (function () {
                 //alert('lenth' + this.str.length + 'carsor' + this.caretPos);
             }
             else if (item === "<--") {
+                // alert(item + "<--");
                 this.caretPos--;
                 this.setSelectionRange(this.caretPos, this.caretPos); //Lift Shift
                 //alert('lenth' + this.str.length + 'carsor' + this.caretPos);
             }
             else if (item === "bksp") {
+                //alert(item + "bksp");
                 this.inputstr = this.inputstr.substring(0, this.inputstr.length - 1);
             }
         }
@@ -388,7 +376,7 @@ var CustomKeyboardComponent = (function () {
 CustomKeyboardComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'custom-keyboard-component',
-                template: "<div class=\"keyboard\"> <div style=\"height: 30px; background-color: #95B3D7;font-size: 20px;margin-bottom: 8px;padding-top: 7px\">Swipe Your Card</div> <input id=\"input\" #inputTextArea  (click)=\"getCaretPos(inputTextArea)\"  [type]=\"inputType\"    (keyup)=\"getCaretPos(inputTextArea)\" [(ngModel)]=\"inputstr\" style=\"width:90%;margin-left: 17px;background-color: #95B3D7;\" /> <br> {{keyfst.key}} {{capGroup.key}} <br> <div style=\"width:80%;float:left;height: 300px;\"> <div> <button style=\"font-size: 20px;height: 57px;float:left;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\" *ngFor=\"let keyfst  of escGroup\"  [style.width.%]=\"keyfst.widthRatio\" (click)=\"click(keyfst.key,inputTextArea)\"> {{keyfst.key}} </button> </div> <div style=\"width:87%;float:left\"> <button style=\"float:left;height:57px;font-size: 20px;;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\"  *ngFor=\"let capGroup of capsGroup\"  [style.width.%]=\"capGroup.widthRatio\" (click)=\"click(capGroup.key,inputTextArea)\"> {{capGroup.key}} </button> </div> <div> <button style=\"font-size: 20px;width:12%;height:118px;word-wrap: break-word;\" > {{enterKey}} </button> </div> <div   > <button style=\"font-size: 20px;height: 57px;width:100%\" > {{spacebarKey}} </button> </div> </div> <!-- <div style=\"width:70%;float:left;height: 305px;margin-left:5px\"> </div> --> <div style=\"width:20%;float:right;\"> <button style=\"height:57px;font-size: 20px;word-wrap: break-word;padding-left: 10px; margin-right:1.5%;margin-bottom: 1.25%;\"  *ngFor=\"let numberKey of numberKeys\"  [style.width.%]=\"numberKey.widthRatio\"  (click)=\"click(numberKey.key,inputTextArea)\"> {{numberKey.key}} </button> </div> </div>",
+                template: "<div class=\"keyboard\"> <div style=\"height: 30px; background-color: #95B3D7;font-size: 20px;margin-bottom: 8px;padding-top: 7px\">Swipe Your Card</div> <input id=\"input\" #inputTextArea  (click)=\"getCaretPos(inputTextArea)\"  [type]=\"inputType\"    (keyup)=\"getCaretPos(inputTextArea)\" [(ngModel)]=\"inputstr\" style=\"width:90%;margin-left: 17px;background-color: #95B3D7;\" /> <br> {{keyfst.key}} {{capGroup.key}} <br> <div style=\"width:80%;float:left;height: 300px;\"> <div> <button style=\"font-size: 20px;height: 57px;float:left;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\" *ngFor=\"let keyfst  of escGroup\"  [style.width.%]=\"keyfst.widthRatio\" (click)=\"click(keyfst.key,inputTextArea)\"> {{keyfst.key}} </button> </div> <div style=\"width:87%;float:left\"> <button style=\"float:left;height:57px;font-size: 20px;;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\"  *ngFor=\"let capGroup of capsGroup\"  [style.width.%]=\"capGroup.widthRatio\" (click)=\"click(capGroup.key,inputTextArea)\"> {{capGroup.key}} </button> </div> <div> <button style=\"font-size: 20px;width:12%;height:118px;word-wrap: break-word;\"  (click)=\"click(enterKey,inputTextArea)\" > {{enterKey}} </button> </div> <div   > <button style=\"font-size: 20px;height: 57px;width:100%\"  (click)=\"click(spacebarKey,inputTextArea)\"> {{spacebarKey}} </button> </div> </div> <!-- <div style=\"width:70%;float:left;height: 305px;margin-left:5px\"> </div> --> <div style=\"width:20%;float:right;\"> <button style=\"height:57px;font-size: 20px;word-wrap: break-word;padding-left: 10px; margin-right:1.5%;margin-bottom: 1.25%;\"  *ngFor=\"let numberKey of numberKeys\"  [style.width.%]=\"numberKey.widthRatio\"  (click)=\"click(numberKey.key,inputTextArea)\"> {{numberKey.key}} </button> </div> </div>",
                 styles: ["/* .button-group{ height: 100px; width: calc(100% - 100px); float: left; min-width: 990px; } .button{ width:calc((100%)/15); height: 50%; padding: 0px; background-color: black; color: white; } .keyboard{ height: 230px; width: 100%; float: left; background-color: aqua; padding-top: 18px; } */ .keyboard{ height: 330px; background-color: #DBE5F1; text-align: center; /* margin-top: 292px; */ /* max-width: 70; max-height: 40; */ /* min-width: 800px; position: fixed; */ }"],
                 host: { '(window:keyup)': 'keyPress($event)' }
             },] },
