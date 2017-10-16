@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/add/operator/filter'), require('@angular/forms')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/add/operator/filter', '@angular/forms'], factory) :
-	(factory((global.keypack = {}),global.core,global.common,null,global.forms));
-}(this, (function (exports,core,common,filter,forms) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/add/operator/filter'), require('rxjs/Subject'), require('@angular/forms')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/add/operator/filter', 'rxjs/Subject', '@angular/forms'], factory) :
+	(factory((global.keypack = {}),global.core,global.common,null,global.Subject,global.forms));
+}(this, (function (exports,core,common,filter,Subject,forms) { 'use strict';
 
 // import 'rxjs/add/operator/toPromise';
 // import 'rxjs/add/operator/catch';
@@ -10,6 +10,8 @@
 var CustomKeyboardService = (function () {
     function CustomKeyboardService() {
         alert("service cont");
+        alert("service cont");
+        this.subject = new Subject.Subject();
     }
     /**
      * @param {?} passvalue
@@ -56,7 +58,6 @@ var CustomKeyboardComponent = (function () {
         this.CapsLock = false;
         this.inputstr = "";
         this.caretPos = 0;
-        alert("componnt");
         this.numberKeys = [
             {
                 key: "7",
@@ -241,14 +242,15 @@ var CustomKeyboardComponent = (function () {
      */
     CustomKeyboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.inputstr = "";
-        this.CapsLock = false;
-        // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
-        this.caretPos = 0;
         this.subscriptions = this.customKeyboardService.filterOn('input:type:change').subscribe(function (d) {
             alert(d.data + "components");
             _this.inputType = d.data;
         });
+        alert("componnt" + this.inputType);
+        this.inputstr = "";
+        this.CapsLock = false;
+        // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
+        this.caretPos = 0;
     };
     /**
      * @param {?} event
@@ -271,34 +273,34 @@ var CustomKeyboardComponent = (function () {
      * @return {?}
      */
     CustomKeyboardComponent.prototype.Caps = function () {
-        if (this.CapsLock) {
-            this.CapsLock = !this.CapsLock;
-            for (var /** @type {?} */ i = 0; i <= 36; i++) {
-                if (i >= 1 && i <= 10) {
-                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-                }
-                else if (i >= 16 && i <= 24) {
-                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-                }
-                else if (i >= 30 && i <= 36) {
-                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
-                }
-            }
-        }
-        else {
-            this.CapsLock = !this.CapsLock;
-            for (var /** @type {?} */ i = 0; i <= 36; i++) {
-                if (i >= 1 && i <= 10) {
-                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-                }
-                else if (i >= 16 && i <= 24) {
-                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-                }
-                else if (i >= 30 && i <= 36) {
-                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
-                }
-            }
-        }
+        // if (this.CapsLock) {
+        //   this.CapsLock = !this.CapsLock;
+        //   for (let i = 0; i <= 36; i++) {
+        //     if (i >= 1 && i <= 10) {
+        //       this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+        //     }
+        //     else if (i >= 16 && i <= 24) {
+        //       this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+        //     }
+        //     else if (i >= 30 && i <= 36) {
+        //       this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
+        //     }
+        //   }
+        // }
+        // else {
+        //   this.CapsLock = !this.CapsLock;
+        //   for (let i = 0; i <= 36; i++) {
+        //     if (i >= 1 && i <= 10) {
+        //       this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+        //     }
+        //     else if (i >= 16 && i <= 24) {
+        //       this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+        //     }
+        //     else if (i >= 30 && i <= 36) {
+        //       this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
+        //     }
+        //   }
+        // }
     };
     /**
      * @param {?} item
