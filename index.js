@@ -49,7 +49,6 @@ var CustomKeyboardComponent = (function () {
      * @param {?} customKeyboardService
      */
     function CustomKeyboardComponent(customKeyboardService) {
-        var _this = this;
         this.customKeyboardService = customKeyboardService;
         this.enterKey = ["Enter"];
         this.spacebarKey = ["Spacebar"];
@@ -235,15 +234,16 @@ var CustomKeyboardComponent = (function () {
                     widthRatio: 10,
                 },
             ];
-        this.subscriptions = this.customKeyboardService.filterOn('input:type:change').subscribe(function (d) {
-            alert(d.data + "components");
-            _this.inputType = d.data;
-        });
     }
     /**
      * @return {?}
      */
     CustomKeyboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.subscriptions = this.customKeyboardService.filterOn('input:type:change').subscribe(function (d) {
+            alert(d.data + "components");
+            _this.inputType = d.data;
+        });
         this.inputstr = "";
         this.CapsLock = false;
         // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
