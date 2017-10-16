@@ -265,21 +265,14 @@ var CustomKeyboardComponent = (function () {
             this.Caps();
         }
         else if (event.keyCode == "17") {
-            this.enterKeyMethod();
         }
         else if (event.keyCode == "13") {
-            this.enterKeyMethod();
+            console.log(this.inputstr);
+            this.customKeyboardService.emit('enter:value', this.inputstr);
         }
         else {
             this.inputstr = event.target.value;
         }
-    };
-    /**
-     * @return {?}
-     */
-    CustomKeyboardComponent.prototype.enterKeyMethod = function () {
-        console.log(this.inputstr);
-        this.customKeyboardService.emit('enter:value', this.inputstr);
     };
     /**
      * @return {?}

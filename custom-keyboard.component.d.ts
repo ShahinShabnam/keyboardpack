@@ -27,7 +27,6 @@ export declare class CustomKeyboardComponent implements OnInit {
     constructor(customKeyboardService: CustomKeyboardService);
     ngOnInit(): void;
     keyPress(event: any): void;
-    enterKeyMethod(): void;
     Caps(): void;
     click(item: any, inputTextArea: any): void;
     getCaretPos(oField: any): void;
