@@ -256,7 +256,7 @@ var CustomKeyboardComponent = (function () {
      * @return {?}
      */
     CustomKeyboardComponent.prototype.keyPress = function (event) {
-        console.log(event.keyCode);
+        console.log('keyPress' + "" + event.keyCode);
         if (event.keyCode == "27") {
             console.log(String.fromCharCode(event.keyCode));
             alert("you press the excape button");
