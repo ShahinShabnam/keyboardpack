@@ -241,12 +241,8 @@ var CustomKeyboardComponent = (function () {
                 },
             ];
         this.subscriptions = this.customKeyboardService.filterOn('input:type:change').subscribe(function (d) {
-            if (d.error) {
-                console.log(d.error);
-            }
-            else {
-                _this.inputType = d.data;
-            }
+            alert(d.data + "components");
+            _this.inputType = d.data;
         });
     }
     /**
@@ -283,13 +279,13 @@ var CustomKeyboardComponent = (function () {
             this.CapsLock = !this.CapsLock;
             for (var /** @type {?} */ i = 0; i <= 36; i++) {
                 if (i >= 1 && i <= 10) {
-                    this.stringKeys[i].key = this.stringKeys[i].key.toLowerCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
                 }
                 else if (i >= 16 && i <= 24) {
-                    this.stringKeys[i].key = this.stringKeys[i].key.toLowerCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
                 }
                 else if (i >= 30 && i <= 36) {
-                    this.stringKeys[i].key = this.stringKeys[i].key.toLowerCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toLowerCase();
                 }
             }
         }
@@ -297,13 +293,13 @@ var CustomKeyboardComponent = (function () {
             this.CapsLock = !this.CapsLock;
             for (var /** @type {?} */ i = 0; i <= 36; i++) {
                 if (i >= 1 && i <= 10) {
-                    this.stringKeys[i].key = this.stringKeys[i].key.toUpperCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
                 }
                 else if (i >= 16 && i <= 24) {
-                    this.stringKeys[i].key = this.stringKeys[i].key.toUpperCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
                 }
                 else if (i >= 30 && i <= 36) {
-                    this.stringKeys[i].key = this.stringKeys[i].key.toUpperCase();
+                    this.escGroup[i].key = this.escGroup[i].key.toUpperCase();
                 }
             }
         }

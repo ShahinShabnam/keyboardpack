@@ -8,11 +8,6 @@ export declare class CustomKeyboardComponent implements OnInit {
         key: string;
         widthRatio: number;
     }>;
-    stringKeys: Array<{
-        key: string;
-        widthRatio: number;
-        heightRatio: number;
-    }>;
     escGroup: Array<{
         key: string;
         widthRatio: number;
