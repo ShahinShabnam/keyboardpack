@@ -4,15 +4,72 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import { FormsModule } from '@angular/forms';
 
+var CustomKeyboardService = (function () {
+    /**
+     * @param {?} _http
+     */
+    function CustomKeyboardService(_http) {
+        this._http = _http;
+    }
+    /**
+     * @param {?} passvalue
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.passvalue = function (passvalue) {
+        console.log(passvalue);
+        this.emit('input:type:change', passvalue);
+    };
+    /**
+     * @param {?} id
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.filterOn = function (id) {
+        return (this.subject.filter(function (d) { return (d.id === id); }));
+    };
+    
+    /**
+     * @param {?} id
+     * @param {?=} options
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.emit = function (id, options) {
+        this.subject.next({ id: id, data: options });
+    };
+    return CustomKeyboardService;
+}());
+CustomKeyboardService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+CustomKeyboardService.ctorParameters = function () { return [
+    { type: Http, },
+]; };
+
 var CustomKeyboardComponent = (function () {
-    function CustomKeyboardComponent() {
+    /**
+     * @param {?} customKeyboardService
+     */
+    function CustomKeyboardComponent(customKeyboardService) {
+        var _this = this;
+        this.customKeyboardService = customKeyboardService;
         this.enterKey = ["Enter"];
         this.spacebarKey = ["Spacebar"];
         this.CapsLock = false;
         this.inputstr = "";
         this.caretPos = 0;
+        this.subscriptions = this.customKeyboardService.filterOn('input:type:change').subscribe(function (d) {
+            if (d.error) {
+                console.log(d.error);
+            }
+            else {
+                _this.inputType = d.data;
+            }
+        });
         this.numberKeys = [
             {
                 key: "7",
@@ -333,7 +390,7 @@ var CustomKeyboardComponent = (function () {
 CustomKeyboardComponent.decorators = [
     { type: Component, args: [{
                 selector: 'custom-keyboard-component',
-                template: "<div class=\"keyboard\"> <div style=\"height: 30px; background-color: #95B3D7;font-size: 20px;margin-bottom: 8px;padding-top: 7px\">Swipe Your Card</div> <input id=\"input\" #inputTextArea  (click)=\"getCaretPos(inputTextArea)\"     (keyup)=\"getCaretPos(inputTextArea)\" [(ngModel)]=\"inputstr\" style=\"width:90%;margin-left: 17px;background-color: #95B3D7;\" /> <br> <br> <div style=\"width:80%;float:left;height: 300px;\"> <div> <button style=\"font-size: 20px;height: 57px;float:left;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\" *ngFor=\"let keyfst  of escGroup\"  [style.width.%]=\"keyfst.widthRatio\" (click)=\"click( escGroup.key,inputTextArea)\"> {{keyfst.key}} </button> </div> <div style=\"width:87%;float:left\"> <button style=\"float:left;height:57px;font-size: 20px;;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\"  *ngFor=\"let caps of capsGroup\"  [style.width.%]=\"caps.widthRatio\" (click)=\"click(capsGroup.key,inputTextArea)\"> {{caps.key}} </button> </div> <div> <button style=\"font-size: 20px;width:12%;height:118px;word-wrap: break-word;\" > {{enterKey}} </button> </div> <div   > <button style=\"font-size: 20px;height: 57px;width:100%\" > {{spacebarKey}} </button> </div> </div> <!-- <div style=\"width:70%;float:left;height: 305px;margin-left:5px\"> </div> --> <div style=\"width:20%;float:right;\"> <button style=\"height:57px;font-size: 20px;word-wrap: break-word;padding-left: 10px; margin-right:1.5%;margin-bottom: 1.25%;\"  *ngFor=\"let numberKey of numberKeys\"  [style.width.%]=\"numberKey.widthRatio\"  (click)=\"click(numberKeys.key,inputTextArea)\"> {{numberKey.key}} </button> </div> </div>",
+                template: "<div class=\"keyboard\"> <div style=\"height: 30px; background-color: #95B3D7;font-size: 20px;margin-bottom: 8px;padding-top: 7px\">Swipe Your Card</div> <input id=\"input\" #inputTextArea  (click)=\"getCaretPos(inputTextArea)\"  [(type)]=\"inputType\"    (keyup)=\"getCaretPos(inputTextArea)\" [(ngModel)]=\"inputstr\" style=\"width:90%;margin-left: 17px;background-color: #95B3D7;\" /> <br> <br> <div style=\"width:80%;float:left;height: 300px;\"> <div> <button style=\"font-size: 20px;height: 57px;float:left;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\" *ngFor=\"let keyfst  of escGroup\"  [style.width.%]=\"keyfst.widthRatio\" (click)=\"click( escGroup.key,inputTextArea)\"> {{keyfst.key}} </button> </div> <div style=\"width:87%;float:left\"> <button style=\"float:left;height:57px;font-size: 20px;;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\"  *ngFor=\"let caps of capsGroup\"  [style.width.%]=\"caps.widthRatio\" (click)=\"click(capsGroup.key,inputTextArea)\"> {{caps.key}} </button> </div> <div> <button style=\"font-size: 20px;width:12%;height:118px;word-wrap: break-word;\" > {{enterKey}} </button> </div> <div   > <button style=\"font-size: 20px;height: 57px;width:100%\" > {{spacebarKey}} </button> </div> </div> <!-- <div style=\"width:70%;float:left;height: 305px;margin-left:5px\"> </div> --> <div style=\"width:20%;float:right;\"> <button style=\"height:57px;font-size: 20px;word-wrap: break-word;padding-left: 10px; margin-right:1.5%;margin-bottom: 1.25%;\"  *ngFor=\"let numberKey of numberKeys\"  [style.width.%]=\"numberKey.widthRatio\"  (click)=\"click(numberKeys.key,inputTextArea)\"> {{numberKey.key}} </button> </div> </div>",
                 styles: ["/* .button-group{ height: 100px; width: calc(100% - 100px); float: left; min-width: 990px; } .button{ width:calc((100%)/15); height: 50%; padding: 0px; background-color: black; color: white; } .keyboard{ height: 230px; width: 100%; float: left; background-color: aqua; padding-top: 18px; } */ .keyboard{ height: 330px; background-color: #DBE5F1; text-align: center; /* margin-top: 292px; */ /* max-width: 70; max-height: 40; */ /* min-width: 800px; position: fixed; */ }"],
                 host: { '(window:keyup)': 'keyPress($event)' }
             },] },
@@ -341,7 +398,9 @@ CustomKeyboardComponent.decorators = [
 /**
  * @nocollapse
  */
-CustomKeyboardComponent.ctorParameters = function () { return []; };
+CustomKeyboardComponent.ctorParameters = function () { return [
+    { type: CustomKeyboardService, },
+]; };
 
 var CustomKeyboardDirective = (function () {
     /**
@@ -391,41 +450,6 @@ CustomKeyboardPipe.decorators = [
  * @nocollapse
  */
 CustomKeyboardPipe.ctorParameters = function () { return []; };
-
-var CustomKeyboardService = (function () {
-    /**
-     * @param {?} _http
-     */
-    function CustomKeyboardService(_http) {
-        this._http = _http;
-    }
-    /**
-     * @param {?} id
-     * @return {?}
-     */
-    CustomKeyboardService.prototype.filterOn = function (id) {
-        return (this.subject.filter(function (d) { return (d.id === id); }));
-    };
-    
-    /**
-     * @param {?} id
-     * @param {?=} options
-     * @return {?}
-     */
-    CustomKeyboardService.prototype.emit = function (id, options) {
-        this.subject.next({ id: id, data: options });
-    };
-    return CustomKeyboardService;
-}());
-CustomKeyboardService.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-CustomKeyboardService.ctorParameters = function () { return [
-    { type: Http, },
-]; };
 
 var CustomKeyboardModule = (function () {
     function CustomKeyboardModule() {
