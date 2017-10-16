@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 // import 'rxjs/add/operator/map';
 var CustomKeyboardService = (function () {
     function CustomKeyboardService() {
+        alert("service cont");
     }
     /**
      * @param {?} passvalue
@@ -55,6 +56,7 @@ var CustomKeyboardComponent = (function () {
         this.CapsLock = false;
         this.inputstr = "";
         this.caretPos = 0;
+        alert("componnt");
         this.numberKeys = [
             {
                 key: "7",
