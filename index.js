@@ -62,51 +62,51 @@ var CustomKeyboardComponent = (function () {
         this.escGroup = [
             {
                 key: "Esc",
-                widthRatio: 6.5,
+                widthRatio: 6.8,
             },
             {
                 key: "q",
-                widthRatio: 7.8,
+                widthRatio: 7.92,
             },
             {
                 key: "w",
-                widthRatio: 7.8,
+                widthRatio: 7.92,
             },
             {
                 key: "e",
-                widthRatio: 7.8,
+                widthRatio: 7.92,
             },
             {
                 key: "r",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "t",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "y",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "u",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "i",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "o",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "p",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
             {
                 key: "bksp",
-                widthRatio: 7.9,
+                widthRatio: 7.92,
             },
         ],
             this.capsGroup = [
@@ -116,79 +116,79 @@ var CustomKeyboardComponent = (function () {
                 },
                 {
                     key: "a",
-                    widthRatio: 9.20,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "s",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "d",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "f",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "g",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "h",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "j",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "k",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "l",
-                    widthRatio: 9.15,
+                    widthRatio: 9.3,
                 },
                 {
                     key: "<--",
-                    widthRatio: 10,
+                    widthRatio: 9.8,
                 },
                 {
                     key: "z",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "x",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "c",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "v",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "b",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "n",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "m",
-                    widthRatio: 9,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "-",
-                    widthRatio: 9.5,
+                    widthRatio: 9.4,
                 },
                 {
                     key: "-->",
-                    widthRatio: 10.5,
+                    widthRatio: 10,
                 },
             ];
     }
@@ -328,11 +328,13 @@ var CustomKeyboardComponent = (function () {
     };
     return CustomKeyboardComponent;
 }());
+// inputDefine(inputType){
+// }
 CustomKeyboardComponent.decorators = [
     { type: Component, args: [{
                 selector: 'custom-keyboard-component',
-                template: "<div class=\"keyboard\"> <div style=\"height: 30px; background-color: #95B3D7;font-size: 20px;margin-bottom: 8px;padding-top: 7px\">Swipe Your Card</div> <input id=\"input\" #inputTextArea  (click)=\"getCaretPos(inputTextArea)\"     (keyup)=\"getCaretPos(inputTextArea)\" [(ngModel)]=\"inputstr\" style=\"width:90%;margin-left: 17px;background-color: #95B3D7;\" /> <br> <br> <div style=\"width:80%;float:left;height: 300px;margin-left:5px\"> <div> <button style=\"font-size: 20px;height: 57px;margin-right: 5px;margin-bottom: 5px;float:left;\" *ngFor=\"let keyfst  of escGroup\"  [style.width.%]=\"keyfst.widthRatio\" (click)=\"click( escGroup.key,inputTextArea)\"> {{keyfst.key}} </button> </div> <div style=\"width:87%;float:left\"> <button style=\"float:left;height:57px;margin-right: 5px;margin-bottom: 5px;font-size: 20px;\"  *ngFor=\"let caps of capsGroup\"  [style.width.%]=\"caps.widthRatio\" (click)=\"click(capsGroup.key,inputTextArea)\"> {{caps.key}} </button> </div> <div> <button style=\"font-size: 20px;margin-bottom: 5px;width: 102px;;;height:118px;\" > {{enterKey}} </button> </div> <div   > <button style=\"font-size: 20px;height: 57px;margin-bottom: 5px;width:100%\" > {{spacebarKey}} </button> </div> </div> <!-- <div style=\"width:70%;float:left;height: 305px;margin-left:5px\"> </div> --> <div style=\"width:18%;display: block;float:right;\"> <button style=\"height:57px;font-size: 20px;word-wrap: break-word;padding-left: 10px; margin-right: 5px;margin-bottom: 5px;\"  *ngFor=\"let numberKey of numberKeys\"  [style.width.%]=\"numberKey.widthRatio\"  (click)=\"click(numberKeys.key,inputTextArea)\"> {{numberKey.key}} </button> </div> </div>",
-                styles: ["/* .button-group{ height: 100px; width: calc(100% - 100px); float: left; min-width: 990px; } .button{ width:calc((100%)/15); height: 50%; padding: 0px; background-color: black; color: white; } .keyboard{ height: 230px; width: 100%; float: left; background-color: aqua; padding-top: 18px; } */ .keyboard{ height: 330px; background-color: #DBE5F1; text-align: center; /* margin-top: 292px; */ /* max-width: 70; max-height: 40; */ min-width: 1116px; position: fixed; }"],
+                template: "<div class=\"keyboard\"> <div style=\"height: 30px; background-color: #95B3D7;font-size: 20px;margin-bottom: 8px;padding-top: 7px\">Swipe Your Card</div> <input id=\"input\" #inputTextArea  (click)=\"getCaretPos(inputTextArea)\"     (keyup)=\"getCaretPos(inputTextArea)\" [(ngModel)]=\"inputstr\" style=\"width:90%;margin-left: 17px;background-color: #95B3D7;\" /> <br> <br> <div style=\"width:80%;float:left;height: 300px;\"> <div> <button style=\"font-size: 20px;height: 57px;float:left;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\" *ngFor=\"let keyfst  of escGroup\"  [style.width.%]=\"keyfst.widthRatio\" (click)=\"click( escGroup.key,inputTextArea)\"> {{keyfst.key}} </button> </div> <div style=\"width:87%;float:left\"> <button style=\"float:left;height:57px;font-size: 20px;;margin-right:.5%;margin-bottom:.5%;word-wrap: break-word;\"  *ngFor=\"let caps of capsGroup\"  [style.width.%]=\"caps.widthRatio\" (click)=\"click(capsGroup.key,inputTextArea)\"> {{caps.key}} </button> </div> <div> <button style=\"font-size: 20px;width:12%;height:118px;word-wrap: break-word;\" > {{enterKey}} </button> </div> <div   > <button style=\"font-size: 20px;height: 57px;width:100%\" > {{spacebarKey}} </button> </div> </div> <!-- <div style=\"width:70%;float:left;height: 305px;margin-left:5px\"> </div> --> <div style=\"width:20%;float:right;\"> <button style=\"height:57px;font-size: 20px;word-wrap: break-word;padding-left: 10px; margin-right:1.5%;margin-bottom: 1.25%;\"  *ngFor=\"let numberKey of numberKeys\"  [style.width.%]=\"numberKey.widthRatio\"  (click)=\"click(numberKeys.key,inputTextArea)\"> {{numberKey.key}} </button> </div> </div>",
+                styles: ["/* .button-group{ height: 100px; width: calc(100% - 100px); float: left; min-width: 990px; } .button{ width:calc((100%)/15); height: 50%; padding: 0px; background-color: black; color: white; } .keyboard{ height: 230px; width: 100%; float: left; background-color: aqua; padding-top: 18px; } */ .keyboard{ height: 330px; background-color: #DBE5F1; text-align: center; /* margin-top: 292px; */ /* max-width: 70; max-height: 40; */ /* min-width: 800px; */ position: fixed; }"],
                 host: { '(window:keyup)': 'keyPress($event)' }
             },] },
 ];
