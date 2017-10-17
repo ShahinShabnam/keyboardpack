@@ -240,6 +240,7 @@ var CustomKeyboardComponent = (function () {
             // alert(this.inputType + "this.inputType");
             _this.inputType = d.data;
         });
+        document.getElementById('input').focus();
     }
     /**
      * @return {?}
@@ -249,7 +250,6 @@ var CustomKeyboardComponent = (function () {
         this.CapsLock = false;
         // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
         this.caretPos = 0;
-        document.getElementById('input').focus();
     };
     /**
      * @param {?} event
@@ -305,8 +305,9 @@ var CustomKeyboardComponent = (function () {
      */
     CustomKeyboardComponent.prototype.click = function (item, inputTextArea) {
         //alert(item);
+        console.log('item' + "" + item);
         this.getCaretPos(inputTextArea); //Get Cursor Position From Text Area
-        if (item === "Esc" || item[0] === "Enter" || item === "Enter") {
+        if (item === "Esc") {
             console.log(item);
         }
         else {
@@ -341,7 +342,7 @@ var CustomKeyboardComponent = (function () {
                 this.setSelectionRange(this.caretPos, this.caretPos); //Lift Shift
                 //alert('lenth' + this.str.length + 'carsor' + this.caretPos);
             }
-            else if (item === "Enter") {
+            else if (item[0] === "Enter" || item === "Enter") {
                 console.log(this.inputstr);
                 alert(this.inputstr + "enter:value");
                 this.customKeyboardService.emit('enter:value', this.inputstr);
