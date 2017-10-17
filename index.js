@@ -249,7 +249,6 @@ var CustomKeyboardComponent = (function () {
         this.CapsLock = false;
         // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
         this.caretPos = 0;
-        document.getElementById('input').focus();
     };
     /**
      * @param {?} event
@@ -267,13 +266,19 @@ var CustomKeyboardComponent = (function () {
         else if (event.keyCode == "17") {
         }
         else if (event.keyCode == "13") {
-            console.log(this.inputstr);
-            alert(this.inputstr + "enter:value");
-            this.customKeyboardService.emit('enter:value', this.inputstr);
+            this.enterKeyMethod();
         }
         else {
             this.inputstr = event.target.value;
         }
+    };
+    /**
+     * @return {?}
+     */
+    CustomKeyboardComponent.prototype.enterKeyMethod = function () {
+        console.log(this.inputstr + "event.keyCode13");
+        alert(this.inputstr + "enter:value");
+        this.customKeyboardService.emit('enter:value', this.inputstr);
     };
     /**
      * @return {?}
@@ -311,7 +316,7 @@ var CustomKeyboardComponent = (function () {
             console.log(item);
         }
         else {
-            if (item !== "bksp" && item !== "caps" && item[0] !== "Spacebar" && item !== "-->" && item !== "<--") {
+            if (item !== "bksp" && item !== "caps" && item[0] !== "Spacebar" && item !== "-->" && item !== "<--" && item[0] !== "Enter" || item !== "Enter") {
                 // console.log('lenth' + this.inputstr.length + 'carsor' + this.caretPos);
                 if (this.inputstr.length > this.caretPos) {
                     var /** @type {?} */ tempstr = this.inputstr.substring(0, this.caretPos);
@@ -343,16 +348,14 @@ var CustomKeyboardComponent = (function () {
                 //alert('lenth' + this.str.length + 'carsor' + this.caretPos);
             }
             else if (item[0] === "Enter" || item === "Enter") {
-                console.log(this.inputstr);
-                alert(this.inputstr + "enter:value");
-                this.customKeyboardService.emit('enter:value', this.inputstr);
+                this.enterKeyMethod();
             }
             else if (item === "bksp") {
                 //alert(item + "bksp");
                 this.inputstr = this.inputstr.substring(0, this.inputstr.length - 1);
             }
         }
-        //document.getElementById('input').focus();//input focus...
+        document.getElementById('input').focus(); //input focus...
     };
     /**
      * @param {?} oField
