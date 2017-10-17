@@ -485,6 +485,7 @@ CustomKeyboardModule.decorators = [
                     CustomKeyboardComponent,
                     CustomKeyboardDirective,
                     CustomKeyboardPipe,
+                    CustomKeyboardService,
                 ]
             },] },
 ];
