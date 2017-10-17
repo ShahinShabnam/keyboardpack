@@ -316,7 +316,7 @@ var CustomKeyboardComponent = (function () {
             console.log(item);
         }
         else {
-            if (item !== "bksp" && item !== "caps" && item[0] !== "Spacebar" && item !== "-->" && item !== "<--" && item[0] !== "Enter" || item !== "Enter") {
+            if (item !== "bksp" && item !== "caps" && item[0] !== "Spacebar" && item !== "-->" && item !== "<--" && item[0] !== "Enter" && item !== "Enter") {
                 // console.log('lenth' + this.inputstr.length + 'carsor' + this.caretPos);
                 if (this.inputstr.length > this.caretPos) {
                     var /** @type {?} */ tempstr = this.inputstr.substring(0, this.caretPos);
@@ -347,7 +347,10 @@ var CustomKeyboardComponent = (function () {
                 this.setSelectionRange(this.caretPos, this.caretPos); //Lift Shift
                 //alert('lenth' + this.str.length + 'carsor' + this.caretPos);
             }
-            else if (item[0] === "Enter" || item === "Enter") {
+            else if (item[0] === "Enter") {
+                this.enterKeyMethod();
+            }
+            else if (item === "Enter") {
                 this.enterKeyMethod();
             }
             else if (item === "bksp") {
