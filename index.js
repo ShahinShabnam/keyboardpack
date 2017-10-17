@@ -358,7 +358,7 @@ var CustomKeyboardComponent = (function () {
                 this.inputstr = this.inputstr.substring(0, this.inputstr.length - 1);
             }
         }
-        document.getElementById('input').focus(); //input focus...
+        // document.getElementById('input').focus();//input focus...
     };
     /**
      * @param {?} oField
