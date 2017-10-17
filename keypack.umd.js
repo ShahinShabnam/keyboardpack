@@ -240,7 +240,6 @@ var CustomKeyboardComponent = (function () {
             // alert(this.inputType + "this.inputType");
             _this.inputType = d.data;
         });
-        document.getElementById('input').focus();
     }
     /**
      * @return {?}
@@ -250,6 +249,7 @@ var CustomKeyboardComponent = (function () {
         this.CapsLock = false;
         // this.keys = ["Esc", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "bksp", "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter", "<--", "z", "x", "c", "v", "b", "n", "m", "-", "-->", "Spacebar", "0",];
         this.caretPos = 0;
+        document.getElementById('input').focus();
     };
     /**
      * @param {?} event
