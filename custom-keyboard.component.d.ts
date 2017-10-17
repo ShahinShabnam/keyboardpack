@@ -1,5 +1,5 @@
 import { OnInit } from '@angular/core';
-import { CustomKeyboardService } from 'custom-keyboard.service';
+import { CustomKeyboardService } from './custom-keyboard.service';
 import { Subscription } from 'rxjs/Subscription';
 export declare class CustomKeyboardComponent implements OnInit {
     customKeyboardService: CustomKeyboardService;

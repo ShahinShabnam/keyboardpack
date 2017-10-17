@@ -1,9 +1,46 @@
 import { Component, Directive, ElementRef, Injectable, NgModule, Pipe } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomKeyboardService } from 'custom-keyboard.service';
 import 'rxjs/add/operator/filter';
 import { Subject as Subject$1 } from 'rxjs/Subject';
 import { FormsModule } from '@angular/forms';
+
+var CustomKeyboardService = (function () {
+    function CustomKeyboardService() {
+        this.subject = new Subject$1();
+    }
+    /**
+     * @param {?} passvalue
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.passvalue = function (passvalue) {
+        console.log(passvalue);
+        this.emit('input:type:change', passvalue);
+    };
+    /**
+     * @param {?} id
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.filterOn = function (id) {
+        return (this.subject.filter(function (d) { return (d.id === id); }));
+    };
+    
+    /**
+     * @param {?} id
+     * @param {?=} options
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.emit = function (id, options) {
+        this.subject.next({ id: id, data: options });
+    };
+    return CustomKeyboardService;
+}());
+CustomKeyboardService.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+CustomKeyboardService.ctorParameters = function () { return []; };
 
 var CustomKeyboardComponent = (function () {
     /**
@@ -415,44 +452,6 @@ CustomKeyboardPipe.decorators = [
  */
 CustomKeyboardPipe.ctorParameters = function () { return []; };
 
-var CustomKeyboardService$1 = (function () {
-    function CustomKeyboardService$$1() {
-        this.subject = new Subject$1();
-    }
-    /**
-     * @param {?} passvalue
-     * @return {?}
-     */
-    CustomKeyboardService$$1.prototype.passvalue = function (passvalue) {
-        console.log(passvalue);
-        this.emit('input:type:change', passvalue);
-    };
-    /**
-     * @param {?} id
-     * @return {?}
-     */
-    CustomKeyboardService$$1.prototype.filterOn = function (id) {
-        return (this.subject.filter(function (d) { return (d.id === id); }));
-    };
-    
-    /**
-     * @param {?} id
-     * @param {?=} options
-     * @return {?}
-     */
-    CustomKeyboardService$$1.prototype.emit = function (id, options) {
-        this.subject.next({ id: id, data: options });
-    };
-    return CustomKeyboardService$$1;
-}());
-CustomKeyboardService$1.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-CustomKeyboardService$1.ctorParameters = function () { return []; };
-
 var CustomKeyboardModule = (function () {
     function CustomKeyboardModule() {
     }
@@ -462,7 +461,7 @@ var CustomKeyboardModule = (function () {
     CustomKeyboardModule.forRoot = function () {
         return {
             ngModule: CustomKeyboardModule,
-            providers: [CustomKeyboardService$1]
+            providers: [CustomKeyboardService]
         };
     };
     return CustomKeyboardModule;
@@ -490,4 +489,4 @@ CustomKeyboardModule.decorators = [
  */
 CustomKeyboardModule.ctorParameters = function () { return []; };
 
-export { CustomKeyboardModule, CustomKeyboardComponent, CustomKeyboardDirective, CustomKeyboardPipe, CustomKeyboardService$1 as CustomKeyboardService };
+export { CustomKeyboardModule, CustomKeyboardComponent, CustomKeyboardDirective, CustomKeyboardPipe, CustomKeyboardService };

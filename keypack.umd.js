@@ -1,8 +1,46 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('custom-keyboard.service'), require('rxjs/add/operator/filter'), require('rxjs/Subject'), require('@angular/forms')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'custom-keyboard.service', 'rxjs/add/operator/filter', 'rxjs/Subject', '@angular/forms'], factory) :
-	(factory((global.keypack = {}),global.core,global.common,global.customKeyboard_service,null,global.Subject,global.forms));
-}(this, (function (exports,core,common,customKeyboard_service,filter,Subject,forms) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/add/operator/filter'), require('rxjs/Subject'), require('@angular/forms')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/add/operator/filter', 'rxjs/Subject', '@angular/forms'], factory) :
+	(factory((global.keypack = {}),global.core,global.common,null,global.Subject,global.forms));
+}(this, (function (exports,core,common,filter,Subject,forms) { 'use strict';
+
+var CustomKeyboardService = (function () {
+    function CustomKeyboardService() {
+        this.subject = new Subject.Subject();
+    }
+    /**
+     * @param {?} passvalue
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.passvalue = function (passvalue) {
+        console.log(passvalue);
+        this.emit('input:type:change', passvalue);
+    };
+    /**
+     * @param {?} id
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.filterOn = function (id) {
+        return (this.subject.filter(function (d) { return (d.id === id); }));
+    };
+    
+    /**
+     * @param {?} id
+     * @param {?=} options
+     * @return {?}
+     */
+    CustomKeyboardService.prototype.emit = function (id, options) {
+        this.subject.next({ id: id, data: options });
+    };
+    return CustomKeyboardService;
+}());
+CustomKeyboardService.decorators = [
+    { type: core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+CustomKeyboardService.ctorParameters = function () { return []; };
 
 var CustomKeyboardComponent = (function () {
     /**
@@ -362,7 +400,7 @@ CustomKeyboardComponent.decorators = [
  * @nocollapse
  */
 CustomKeyboardComponent.ctorParameters = function () { return [
-    { type: customKeyboard_service.CustomKeyboardService, },
+    { type: CustomKeyboardService, },
 ]; };
 
 var CustomKeyboardDirective = (function () {
@@ -414,44 +452,6 @@ CustomKeyboardPipe.decorators = [
  */
 CustomKeyboardPipe.ctorParameters = function () { return []; };
 
-var CustomKeyboardService$1 = (function () {
-    function CustomKeyboardService$$1() {
-        this.subject = new Subject.Subject();
-    }
-    /**
-     * @param {?} passvalue
-     * @return {?}
-     */
-    CustomKeyboardService$$1.prototype.passvalue = function (passvalue) {
-        console.log(passvalue);
-        this.emit('input:type:change', passvalue);
-    };
-    /**
-     * @param {?} id
-     * @return {?}
-     */
-    CustomKeyboardService$$1.prototype.filterOn = function (id) {
-        return (this.subject.filter(function (d) { return (d.id === id); }));
-    };
-    
-    /**
-     * @param {?} id
-     * @param {?=} options
-     * @return {?}
-     */
-    CustomKeyboardService$$1.prototype.emit = function (id, options) {
-        this.subject.next({ id: id, data: options });
-    };
-    return CustomKeyboardService$$1;
-}());
-CustomKeyboardService$1.decorators = [
-    { type: core.Injectable },
-];
-/**
- * @nocollapse
- */
-CustomKeyboardService$1.ctorParameters = function () { return []; };
-
 var CustomKeyboardModule = (function () {
     function CustomKeyboardModule() {
     }
@@ -461,7 +461,7 @@ var CustomKeyboardModule = (function () {
     CustomKeyboardModule.forRoot = function () {
         return {
             ngModule: CustomKeyboardModule,
-            providers: [CustomKeyboardService$1]
+            providers: [CustomKeyboardService]
         };
     };
     return CustomKeyboardModule;
@@ -493,7 +493,7 @@ exports.CustomKeyboardModule = CustomKeyboardModule;
 exports.CustomKeyboardComponent = CustomKeyboardComponent;
 exports.CustomKeyboardDirective = CustomKeyboardDirective;
 exports.CustomKeyboardPipe = CustomKeyboardPipe;
-exports.CustomKeyboardService = CustomKeyboardService$1;
+exports.CustomKeyboardService = CustomKeyboardService;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
